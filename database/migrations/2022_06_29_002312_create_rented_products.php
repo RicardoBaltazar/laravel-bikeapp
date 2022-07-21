@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProducts extends Migration
+class CreateRentedProducts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,17 @@ class CreateProducts extends Migration
      */
     public function up()
     {
-        //php artisan make:migration create_table --create=table
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('rented_products', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('customers_id');
+
             $table->string('product_number');
-            $table->string('status')->default('1');
+            $table->float('value');
+            $table->integer('number_days');
+
             $table->timestamps();
+
+            $table->foreign('customers_id')->references('id')->on('customers');
         });
     }
 
@@ -29,6 +34,6 @@ class CreateProducts extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('rented_products');
     }
 }

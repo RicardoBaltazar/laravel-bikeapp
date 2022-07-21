@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\RentedProductController;
+use App\Http\Controllers\Services\StatisticController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('products', [ProductController::class, 'index']);
+Route::get('rented_products', [RentedProductController::class, 'index']);
+Route::post('rented_product', [RentedProductController::class, 'store']);
+Route::delete('rented_product/{id}', [RentedProductController::class, 'destroy']);
+Route::post('devolution', [RentedProductController::class, 'devolution']);
+Route::get('devolutions-list', [RentedProductController::class, 'devolutionsList']);
+
+Route::get('statistic-rented-products', [StatisticController::class, 'statisticRentedProducts']);
